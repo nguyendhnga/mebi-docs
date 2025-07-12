@@ -54,6 +54,59 @@
       margin-bottom: 0.8em;
       margin-top: 0;
     }
+    /* --- Password box center --- */
+    #unlock-box {
+      position: fixed;
+      left: 0; right: 0; top: 0; bottom: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: rgba(25,28,31,0.97);
+      z-index: 99;
+      min-height: 100vh;
+    }
+    #unlock-content {
+      min-width: 340px;
+      max-width: 96vw;
+      padding: 2.2rem 2.1rem 2rem 2.1rem;
+      border-radius: 16px;
+      background: #23272c;
+      box-shadow: 0 4px 28px 0 #000b;
+      border: 1px solid #23272c;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+    #unlock-content h2 {
+      color: var(--primary);
+      margin-bottom: 0.3em;
+      font-size: 1.4em;
+      line-height: 1.25;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    #unlock-content form input,
+    #unlock-content form button {
+      margin-bottom: 0.7em;
+      font-size: 1.08em;
+    }
+    #unlock-content .unlock-err {
+      color: #fa3d63;
+      margin-top: 2px;
+      min-height: 1.6em;
+      font-size: .97em;
+    }
+    #unlock-content small {
+      color: #aab9b4;
+      display: block;
+      margin-top: 0.7em;
+      font-size: .96em;
+    }
+    .locked {
+      filter: blur(2.2px);
+      pointer-events: none;
+      user-select: none;
+    }
   </style>
 </head>
 <body>
@@ -67,17 +120,17 @@
     </ul>
   </nav>
 
-  <!-- PASSWORD FORM -->
+  <!-- PASSWORD FORM BOX -->
   <div id="unlock-box">
-    <h2>🔒 Nhập mật khẩu để truy cập tài liệu</h2>
-    <form id="unlock-form">
-      <input type="password" id="unlock-password" placeholder="Mật khẩu nội bộ..." autocomplete="off" required>
-      <button type="submit">Mở khoá</button>
-    </form>
-    <div class="unlock-err" id="unlock-err"></div>
-    <p style="margin-top:1.2em;color:#aaa; font-size:.94em;">
-      <i>Liên hệ trưởng dự án để lấy mật khẩu nội bộ.</i>
-    </p>
+    <div id="unlock-content">
+      <h2>🔒 Nhập mật khẩu để truy cập<br>tài liệu</h2>
+      <form id="unlock-form">
+        <input type="password" id="unlock-password" placeholder="Mật khẩu nội bộ..." autocomplete="off" required>
+        <button type="submit">Mở khoá</button>
+      </form>
+      <div class="unlock-err" id="unlock-err"></div>
+      <small>Liên hệ trưởng dự án để lấy mật khẩu nội bộ.</small>
+    </div>
   </div>
 
   <main class="container locked" id="main-content">
@@ -96,9 +149,26 @@
           </figcaption>
         </figure>
         <h3 id="docs">Tìm kiếm & Danh sách tài liệu</h3>
-        <div class="search-bar">
-          <input type="search" id="searchInput" placeholder="Tìm kiếm tài liệu, giai đoạn, mục nhỏ..." aria-label="Tìm kiếm">
-        </div>
+
+<div class="search-bar" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+  <select id="phaseFilter" style="min-width:140px;">
+    <option value="">Giai đoạn (tất cả)</option>
+    <option value="MVP">MVP</option>
+    <option value="Chính thức - Giai đoạn 1">Chính thức - Giai đoạn 1</option>
+    <option value="Chính thức - Giai đoạn 2">Chính thức - Giai đoạn 2</option>
+    <option value="Chính thức - Giai đoạn 3">Chính thức - Giai đoạn 3</option>
+  </select>
+  <select id="sectionFilter" style="min-width:140px;">
+    <option value="">Mục nhỏ (tất cả)</option>
+    <option value="Timeline">Timeline</option>
+    <option value="Design">Design</option>
+    <option value="Development">Development</option>
+    <option value="Hướng dẫn">Hướng dẫn</option>
+    <option value="Deploy">Deploy</option>
+    <option value="Khác">Khác</option>
+  </select>
+  <input type="search" id="searchInput" placeholder="Tìm kiếm tên, mô tả..." aria-label="Tìm kiếm" style="flex:1;min-width:180px;">
+</div>
         <section class="docs-list" id="docsList"></section>
       </section>
     </div>
@@ -113,7 +183,7 @@
         </hgroup>
         <form class="grid" onsubmit="event.preventDefault()">
           <input type="text" id="firstname" name="firstname" placeholder="Tên của bạn" aria-label="Tên của bạn" required />
-          <input type="email" id="email" name="email" placeholder="Email công ty" aria-label="Email công ty" required />
+          <input type="email" id="email" name="email" placeholder="Email" aria-label="Email" required />
           <button type="submit">Đăng ký</button>
         </form>
       </article>
@@ -165,43 +235,56 @@
       }
     }
 
-    function renderDocs(filter="") {
-      let html = "";
-      // Reset sections
-      phases.forEach(p => p.sections = []);
-      // Phân loại theo phase
-      allDocs.forEach(doc => {
-        if (!doc.phase || !doc.title) return;
-        // filter logic
-        const str = `${doc.phase} ${doc.section} ${doc.title} ${doc.desc}`.toLowerCase();
-        if (filter && !str.includes(filter.toLowerCase())) return;
-        let phase = phases.find(p => p.name === doc.phase);
-        if (phase) phase.sections.push(doc);
-      });
-      phases.forEach(phase => {
-        if (!phase.sections.length) return;
-        html += `<div class="phase-group"><div class="phase-title"><strong>${phase.name}</strong></div>`;
-        phase.sections.forEach(doc => {
-          html += `
-            <div class="docs-card">
-              <img src="${doc.img || 'https://placehold.co/56x56/23272c/1db954?text=Doc'}" alt="Docs">
-              <div class="docs-meta">
-                <h4>${doc.title} <span class="badge">${doc.section}</span></h4>
-                <p>${(doc.desc || '').replace(/\n/g, '<br>')}</p>
-                <a class="docs-link" href="${doc.link}" target="_blank" rel="noopener">🔗 Xem tài liệu</a>
-              </div>
-            </div>
-          `;
-        });
-        html += "</div>";
-      });
-      if (!html) html = '<p style="color:#888">Chưa có tài liệu nào, hoặc không có tài liệu phù hợp với từ khoá tìm kiếm.</p>';
-      document.getElementById('docsList').innerHTML = html;
-    }
+    function renderDocs() {
+  // Lấy giá trị filter
+  const keyword = (document.getElementById('searchInput')?.value || '').toLowerCase();
+  const phaseFilter = document.getElementById('phaseFilter')?.value || "";
+  const sectionFilter = document.getElementById('sectionFilter')?.value || "";
+
+  let html = "";
+  phases.forEach(p => p.sections = []);
+  allDocs.forEach(doc => {
+    if (!doc.phase || !doc.title) return;
+
+    // Kiểm tra từng loại filter
+    if (phaseFilter && doc.phase !== phaseFilter) return;
+    if (sectionFilter && doc.section !== sectionFilter) return;
+    const str = `${doc.title} ${doc.desc || ""}`.toLowerCase();
+    if (keyword && !str.includes(keyword)) return;
+
+    let phase = phases.find(p => p.name === doc.phase);
+    if (phase) phase.sections.push(doc);
+  });
+
+  phases.forEach(phase => {
+    if (!phase.sections.length) return;
+    html += `<div class="phase-group"><div class="phase-title"><strong>${phase.name}</strong></div>`;
+    phase.sections.forEach(doc => {
+      html += `
+        <div class="docs-card">
+          <img src="${doc.img || 'https://placehold.co/56x56/23272c/1db954?text=Doc'}" alt="Docs">
+          <div class="docs-meta">
+            <h4>${doc.title} <span class="badge">${doc.section}</span></h4>
+            <p>${(doc.desc || '').replace(/\n/g, '<br>')}</p>
+            <a class="docs-link" href="${doc.link}" target="_blank" rel="noopener">🔗 Xem tài liệu</a>
+          </div>
+        </div>
+      `;
+    });
+    html += "</div>";
+  });
+
+  if (!html) html = '<p style="color:#888">Chưa có tài liệu nào, hoặc không có tài liệu phù hợp với bộ lọc.</p>';
+  document.getElementById('docsList').innerHTML = html;
+}
+
 
     // Search
-    document.getElementById('searchInput').oninput = function() {
-      renderDocs(this.value);
+    // Lắng nghe thay đổi cả 3 input
+document.getElementById('phaseFilter').onchange =
+document.getElementById('sectionFilter').onchange =
+document.getElementById('searchInput').oninput = function() {
+  renderDocs();
     };
 
     // Lấy dữ liệu lần đầu

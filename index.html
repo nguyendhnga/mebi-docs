@@ -20,7 +20,26 @@
       border-radius: var(--border-radius);
       padding: 2rem 1.5rem;
     }
-    .phase-group { margin-bottom: 2rem; }
+.mebi-logo-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2.5rem 0 2rem 0;
+  gap: 0.7em;
+}
+.mebi-logo-block img {
+  background: transparent !important;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px 0 #1db95418;
+}
+.mebi-logo-block figcaption {
+  margin-top: 0.5em;
+  font-size: 1.12em;
+  color: var(--primary);
+  font-weight: 500;
+  text-align: center;
+}    
+.phase-group { margin-bottom: 2rem; }
     .phase-title { color: var(--primary); margin-bottom: .7rem; }
     .docs-card {
       background: #212529;
@@ -151,16 +170,15 @@
       <section>
         <hgroup>
           <h2>Kho tài liệu dự án Mebi</h2>
-          <h3>Nơi lưu trữ các docs cần thiết – phân loại theo giai đoạn dự án</h3>
+          <h3>Nơi lưu trữ các tài liệu được phân loại theo giai đoạn dự án</h3>
         </hgroup>
         <p>Đây là hệ thống lưu trữ nội bộ các tài liệu quan trọng phục vụ cho các giai đoạn của dự án Mebi.</p>
-        <p>Bạn có thể tìm kiếm, phân loại, và theo dõi các tài liệu liên quan.</p>
-        <figure>
-          <img src="logo-mebi.png" alt="logo" class="playlist-thumb" style="max-width:160px; margin:auto;">
-          <figcaption>
-            <a href="#" target="_blank">Mebi - Hành trình ghi nhận đam mê</a>
-          </figcaption>
-        </figure>
+        <figure class="mebi-logo-block">
+  <img src="logo-mebi.png" alt="logo Mebi" class="playlist-thumb" style="max-width:140px;">
+  <figcaption>
+    <a href="#" target="_blank" style="color: var(--primary); text-decoration:none;">Mebi - Hành trình ghi nhận đam mê</a>
+  </figcaption>
+</figure>
         <h3 id="docs">Tìm kiếm & Danh sách tài liệu</h3>
 
 <div class="search-bar" style="display: flex; gap: 1rem; flex-wrap: wrap;">
@@ -172,7 +190,7 @@
     <option value="Chính thức - Giai đoạn 3">Chính thức - Giai đoạn 3</option>
   </select>
   <select id="sectionFilter" style="flex:1;min-width:180px;">
-    <option value="">Mục nhỏ (tất cả)</option>
+    <option value="">Loại tài liệu (tất cả)</option>
     <option value="Timeline">Timeline</option>
     <option value="Design">Design</option>
     <option value="Development">Development</option>
@@ -186,6 +204,7 @@
       </section>
     </div>
   </main>
+
 
   <footer class="container">
     <small>

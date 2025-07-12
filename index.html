@@ -12,33 +12,22 @@
       --container-background: #23272c;
       --border-radius: 12px;
     }
-    body {
-      background: var(--background-color);
-    }
-    main.container {
-      padding: 2.5rem 0 2rem 0;
-    }
+    body { background: var(--background-color); }
+    main.container { padding: 2.5rem 0 2rem 0; }
     section.docs-list {
       margin-top: 1.5rem;
       background: var(--container-background);
       border-radius: var(--border-radius);
       padding: 2rem 1.5rem;
     }
-    .phase-group {
-      margin-bottom: 2rem;
-    }
-    .phase-title {
-      color: var(--primary);
-      margin-bottom: .7rem;
-    }
+    .phase-group { margin-bottom: 2rem; }
+    .phase-title { color: var(--primary); margin-bottom: .7rem; }
     .docs-card {
       background: #212529;
       border-radius: var(--border-radius);
       padding: 1rem 1.2rem;
       margin-bottom: 1rem;
-      display: flex;
-      gap: 1.2rem;
-      align-items: center;
+      display: flex; gap: 1.2rem; align-items: center;
       border: 1px solid #22282f;
     }
     .docs-card img {
@@ -47,78 +36,24 @@
       border-radius: 10px;
       background: #181b1e;
     }
-    .docs-meta {
-      flex: 1;
-      overflow: hidden;
-    }
-    .docs-meta h4 {
-      margin: 0 0 4px 0;
-      color: #fff;
-      font-size: 1.07em;
-      line-height: 1.2;
-    }
-    .docs-meta p {
-      margin: 0 0 6px 0;
-      font-size: 0.97em;
-      color: #cccccc;
-    }
+    .docs-meta { flex: 1; overflow: hidden; }
+    .docs-meta h4 { margin: 0 0 4px 0; color: #fff; font-size: 1.07em; line-height: 1.2; }
+    .docs-meta p { margin: 0 0 6px 0; font-size: 0.97em; color: #cccccc; }
     .docs-meta .badge {
-      font-size: 0.81em;
-      color: #fff;
-      background: var(--primary);
-      border-radius: 4px;
-      padding: 0.15em 0.65em;
-      margin-right: .3em;
-      display: inline-block;
+      font-size: 0.81em; color: #fff; background: var(--primary);
+      border-radius: 4px; padding: 0.15em 0.65em;
+      margin-right: .3em; display: inline-block;
     }
-    .docs-link {
-      color: var(--primary);
-      font-size: 1.2em;
-    }
+    .docs-link { color: var(--primary); font-size: 1.2em; }
     @media (max-width: 600px) {
-      .docs-card {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: .7rem;
-      }
-      .docs-card img {
-        width: 44px; height: 44px;
-      }
+      .docs-card { flex-direction: column; align-items: flex-start; gap: .7rem; }
+      .docs-card img { width: 44px; height: 44px; }
     }
-    .search-bar {
-      margin-bottom: 2rem;
+    .search-bar { margin-bottom: 2rem; }
+    main.container p {
+      margin-bottom: 0.8em;
+      margin-top: 0;
     }
-    .form-add-doc {
-      margin-top: 2.5rem;
-      padding: 2rem 1.5rem;
-      background: #23272c;
-      border-radius: var(--border-radius);
-      border: 1px solid #23272c;
-    }
-    .form-add-doc h3 {
-      margin-bottom: 1rem;
-    }
-    .locked {
-      filter: blur(2px);
-      pointer-events: none;
-      user-select: none;
-    }
-    #unlock-box {
-      max-width: 370px;
-      margin: 4rem auto 0 auto;
-      padding: 2.2rem 2rem 2rem 2rem;
-      border-radius: 14px;
-      background: #212529;
-      box-shadow: 0 4px 28px 0 #000a  ;
-      border: 1px solid #222;
-      text-align: center;
-    }
-    #unlock-box h2 { color: var(--primary);}
-    .unlock-err { color: #fa3d63; margin: 10px 0 0 0; font-size: .97em;}
-main.container p {
-  margin-bottom: 0.8em;
-  margin-top: 0;
-}
   </style>
 </head>
 <body>
@@ -129,7 +64,6 @@ main.container p {
     <ul>
       <li><a href="#">Trang chủ</a></li>
       <li><a href="#docs">Tài liệu</a></li>
-      <li><a href="#add-doc" role="button">Thêm tài liệu</a></li>
     </ul>
   </nav>
 
@@ -153,8 +87,8 @@ main.container p {
           <h2>Kho tài liệu dự án Mebi</h2>
           <h3>Nơi lưu trữ các docs cần thiết – phân loại theo giai đoạn dự án</h3>
         </hgroup>
-        <p>Đây là hệ thống lưu trữ nội bộ các tài liệu quan trọng phục vụ cho các giai đoạn của dự án Mebi. </p>
-	<p>Bạn có thể tìm kiếm, phân loại, và thêm mới các tài liệu liên quan.</p>
+        <p>Đây là hệ thống lưu trữ nội bộ các tài liệu quan trọng phục vụ cho các giai đoạn của dự án Mebi.</p>
+        <p>Bạn có thể tìm kiếm, phân loại, và theo dõi các tài liệu liên quan.</p>
         <figure>
           <img src="logo-mebi.png" alt="logo" class="playlist-thumb" style="max-width:160px; margin:auto;">
           <figcaption>
@@ -165,36 +99,7 @@ main.container p {
         <div class="search-bar">
           <input type="search" id="searchInput" placeholder="Tìm kiếm tài liệu, giai đoạn, mục nhỏ..." aria-label="Tìm kiếm">
         </div>
-
-        <!-- DOCS LIST (JS GENERATED) -->
         <section class="docs-list" id="docsList"></section>
-
-        <!-- FORM ADD DOC -->
-        <section id="add-doc" class="form-add-doc">
-          <h3>Thêm tài liệu mới</h3>
-          <form id="addDocForm" class="grid" autocomplete="off">
-            <select id="phase" required>
-              <option value="">Chọn Giai đoạn</option>
-              <option value="MVP">MVP</option>
-              <option value="Chính thức - Giai đoạn 1">Chính thức - Giai đoạn 1</option>
-              <option value="Chính thức - Giai đoạn 2">Chính thức - Giai đoạn 2</option>
-              <option value="Chính thức - Giai đoạn 3">Chính thức - Giai đoạn 3</option>
-            </select>
-            <select id="section" required>
-              <option value="">Chọn Mục nhỏ</option>
-              <option value="Timeline">Timeline</option>
-              <option value="Design">Design</option>
-              <option value="Development">Development</option>
-              <option value="Hướng dẫn">Hướng dẫn</option>
-              <option value="Deploy">Deploy</option>
-              <option value="Khác">Khác</option>
-            </select>
-            <input type="text" id="docTitle" placeholder="Tên tài liệu..." required>
-            <input type="text" id="docDesc" placeholder="Mô tả ngắn gọn..." required>
-            <input type="url" id="docLink" placeholder="Link tài liệu (Google Drive, Notion, PDF...)" required>
-            <button type="submit">Lưu tài liệu</button>
-          </form>
-        </section>
       </section>
     </div>
   </main>
@@ -236,20 +141,37 @@ main.container p {
       }
     };
 
-    // Docs Data (localStorage)
-    const docsListKey = "mebiDocsListV1";
-    let docsList = JSON.parse(localStorage.getItem(docsListKey) || "[]");
+    // ==== ĐỒNG BỘ TỪ GOOGLE SHEET ====
+    // Thay link bên dưới bằng link opensheet.vercel.app của Google Sheet bạn!
+    // Ví dụ: const SHEET_URL = "https://opensheet.vercel.app/1abcXYZ12345abcdEfgh-YourID/Sheet1";
+    const SHEET_URL = "https://opensheet.vercel.app/1zyWWUm7yJS5yD2TwLhezVwnqBtF7Ka-TVraZWuyVJb4/Sheet1";
+
+    let allDocs = [];
+    const phases = [
+      { name: "MVP", sections: [] },
+      { name: "Chính thức - Giai đoạn 1", sections: [] },
+      { name: "Chính thức - Giai đoạn 2", sections: [] },
+      { name: "Chính thức - Giai đoạn 3", sections: [] }
+    ];
+
+    async function fetchDocs() {
+      try {
+        const res = await fetch(SHEET_URL);
+        const data = await res.json();
+        allDocs = data;
+        renderDocs();
+      } catch (e) {
+        document.getElementById('docsList').innerHTML = "<p style='color:#fa3d63'>Không thể tải dữ liệu từ Google Sheet.<br>Kiểm tra lại link hoặc quyền chia sẻ!</p>";
+      }
+    }
 
     function renderDocs(filter="") {
       let html = "";
-      // Group by phase
-      const phases = [
-        { name: "MVP", sections: [] },
-        { name: "Chính thức - Giai đoạn 1", sections: [] },
-        { name: "Chính thức - Giai đoạn 2", sections: [] },
-        { name: "Chính thức - Giai đoạn 3", sections: [] }
-      ];
-      docsList.forEach(doc => {
+      // Reset sections
+      phases.forEach(p => p.sections = []);
+      // Phân loại theo phase
+      allDocs.forEach(doc => {
+        if (!doc.phase || !doc.title) return;
         // filter logic
         const str = `${doc.phase} ${doc.section} ${doc.title} ${doc.desc}`.toLowerCase();
         if (filter && !str.includes(filter.toLowerCase())) return;
@@ -265,7 +187,7 @@ main.container p {
               <img src="${doc.img || 'https://placehold.co/56x56/23272c/1db954?text=Doc'}" alt="Docs">
               <div class="docs-meta">
                 <h4>${doc.title} <span class="badge">${doc.section}</span></h4>
-                <p>${doc.desc}</p>
+                <p>${(doc.desc || '').replace(/\n/g, '<br>')}</p>
                 <a class="docs-link" href="${doc.link}" target="_blank" rel="noopener">🔗 Xem tài liệu</a>
               </div>
             </div>
@@ -277,30 +199,19 @@ main.container p {
       document.getElementById('docsList').innerHTML = html;
     }
 
-    renderDocs();
-
-    // Add Doc
-    document.getElementById('addDocForm').onsubmit = function(e) {
-      e.preventDefault();
-      const doc = {
-        phase: document.getElementById('phase').value,
-        section: document.getElementById('section').value,
-        title: document.getElementById('docTitle').value,
-        desc: document.getElementById('docDesc').value,
-        link: document.getElementById('docLink').value,
-        img: "" // bạn có thể thêm link ảnh offline nếu muốn
-      };
-      docsList.push(doc);
-      localStorage.setItem(docsListKey, JSON.stringify(docsList));
-      renderDocs(document.getElementById('searchInput').value);
-      this.reset();
-      alert("Đã thêm tài liệu mới!");
-    };
-
     // Search
     document.getElementById('searchInput').oninput = function() {
       renderDocs(this.value);
     };
+
+    // Lấy dữ liệu lần đầu
+    fetchDocs();
+
+    // === GHI CHÚ QUAN TRỌNG ===
+    // 1. Bạn thêm/xoá/sửa docs ở file Google Sheet (chỉ mình bạn quyền edit).
+    // 2. Các thành viên chỉ mở web này là tự thấy dữ liệu mới nhất.
+    // 3. Nếu docs không hiện ra, hãy kiểm tra: Sheet đã chia sẻ Anyone can view? Đúng tên Sheet? Đúng link opensheet chưa?
+    // 4. Sheet phải có các cột đúng tên: phase, section, title, desc, link, img.
   </script>
 </body>
 </html>

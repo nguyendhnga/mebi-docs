@@ -273,8 +273,17 @@
     if (phase) phase.sections.push(doc);
   });
 
+  // Sắp xếp từng phase.sections theo ngày cập nhật mới nhất lên đầu
   phases.forEach(phase => {
     if (!phase.sections.length) return;
+
+    phase.sections.sort((a, b) => {
+      // Ưu tiên parse dạng YYYY-MM-DD, fallback nếu thiếu
+      const da = new Date(a.updated || a.date || 0);
+      const db = new Date(b.updated || b.date || 0);
+      return db - da; // Mới nhất lên đầu
+    });
+
     html += `<div class="phase-group"><div class="phase-title"><strong>${phase.name}</strong></div>`;
     phase.sections.forEach(doc => {
       html += `
@@ -283,6 +292,9 @@
           <div class="docs-meta">
             <h4>${doc.title} <span class="badge">${doc.section}</span></h4>
             <p>${(doc.desc || '').replace(/\n/g, '<br>')}</p>
+            <div style="color:#aab9b4;font-size:.96em;margin-bottom:0.2em">
+              🕒 <i>Ngày cập nhật: <b>${doc.updated || doc.date || ""}</b></i>
+            </div>
             <a class="docs-link" href="${doc.link}" target="_blank" rel="noopener">🔗 Xem tài liệu</a>
           </div>
         </div>
@@ -294,7 +306,6 @@
   if (!html) html = '<p style="color:#888">Chưa có tài liệu nào, hoặc không có tài liệu phù hợp với bộ lọc.</p>';
   document.getElementById('docsList').innerHTML = html;
 }
-
 
     // Search
     // Lắng nghe thay đổi cả 3 input
